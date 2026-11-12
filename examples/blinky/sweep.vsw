@@ -1,0 +1,11 @@
+# examples/blinky/sweep.vsw
+#   vsweep plan -f sweep.vsw          what each run changes
+#   vsweep run  -f sweep.vsw          build them all
+base { STAGES=4 }                     # every run starts from 4 stages
+
+baseline: {}                          # WIDTH 16 as in config.vh
+wide:     {WIDTH=32}                  # inherits baseline: 4 stages, 32 bits
+mult:     {USE_MULT=on}               # inherits wide: 32-bit multiply-accumulate
+
+# back to baseline, then a 2 x 2 grid in snake order (each step moves one define)
+grid < baseline: {WIDTH=[8,24], STAGES=[2,8]}
